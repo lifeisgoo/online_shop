@@ -23,7 +23,7 @@
                             <div class="blog__item__text">
                                 <span><img src="{% static 'img/icon/calendar.png' %}" alt="">{{ post.created_at|date:"d F Y" }}</span>
                                 <h5>{{ post.title|title|truncatewords:"10" }}</h5>
-                                <a href="#">Read More</a>
+                                <a href="{% url 'blogs:detail' post.pk %}">Read More</a>
                             </div>
                         </div>
                     </div>

@@ -10,7 +10,7 @@
                     <div class="blog__hero__text">
                         <h2>{{ object.title }}</h2>
                         <ul>
-                            <li>By {{ object.full_name }}</li>
+                            <li>By {{ object.author.full_name }}</li>
                             <li>{{ object.created_at|date:"F d Y" }}</li>
                             <li>8 Comments</li>
                         </ul>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="blog__details__text">
                             <p>
-                                {{ object.banner|safe }}
+                                {{ object.body|safe }}
                             </p>
                         </div>
 
@@ -68,7 +68,7 @@
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="blog__details__tags">
                                         {% for tag in object.tag.values %}
-                                            <a href="#">{{ tag.name }}</a>
+                                            <a href="#">#{{ tag.name }}</a>
                                         {% endfor %}
                                     </div>
                                 </div>
