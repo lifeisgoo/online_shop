@@ -82,8 +82,8 @@ class ProductModel(models.Model):
     sale = models.PositiveSmallIntegerField(default=0, verbose_name=_('sale'))
     main_image = models.ImageField(upload_to='products/', verbose_name=_('main_image'))
     tag = models.ManyToManyField(ProductTagModel,related_name='products',verbose_name=_('tags'))
-    size = models.ManyToManyField(SizeModel, related_name='products', verbose_name=_('sizes'))
-    brand = models.ForeignKey(BrandModel, on_delete=models.RESTRICT,related_name='products', verbose_name=_('brands'), null=True)
+    sizes = models.ManyToManyField(SizeModel, related_name='products', verbose_name=_('sizes'))
+    brands = models.ForeignKey(BrandModel, on_delete=models.RESTRICT,related_name='products', verbose_name=_('brands'), null=True)
     colors = models.ManyToManyField(ColorModel, related_name='products', verbose_name=_('colors'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created_at'))
 

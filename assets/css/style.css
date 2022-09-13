@@ -945,6 +945,10 @@ ol {
 	background: #111111;
 }
 
+.color_active {
+	border: 1px solid black !important;
+}
+
 .new {
 	width: 65.83px !important;
 	color: #111111 !important;
