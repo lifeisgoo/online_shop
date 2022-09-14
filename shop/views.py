@@ -1,3 +1,4 @@
+from django.db.models import Min, Max
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from .models import ProductModel, CategoryModel, ProductTagModel, ColorModel, BrandModel, SizeModel
@@ -64,6 +65,8 @@ class ProductDetailView(DetailView):
         data['sizes'] = SizeModel.objects.all()
         data['colors'] = ColorModel.objects.all()
         data['brands'] = BrandModel.objects.all()
+        data['min_price'], data['max_price'] = ProductModel.objects.aggregate(Min('price'), Max('price')).values()
+
         return data
 
 

@@ -30,15 +30,11 @@
         <h5>${{ product.get_price }} {% if product.is_sale %} ,
             <del class="text-secondary">{{ product.price }}</del> {% endif %}</h5>
         <div class="product__color__select">
-            <label for="pc-4">
-                <input type="radio" id="pc-4">
-            </label>
-            <label class="active black" for="pc-5">
-                <input type="radio" id="pc-5">
-            </label>
-            <label class="grey" for="pc-6">
-                <input type="radio" id="pc-6">
-            </label>
+            {% for color in product.color.all %}
+                <label style="background-color: {{ color.code }}" for="{{ color.code }}">
+                    <input type="radio" id="{{ color.code }}">
+                </label>
+            {% endfor %}
         </div>
     </div>
 </div>
