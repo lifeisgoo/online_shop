@@ -1,4 +1,5 @@
 from django import template
+from shop.models import WishlistModel
 
 register = template.Library()
 
@@ -10,3 +11,7 @@ def get_current_price(request, x):
         return data.split(';')[x]
     else:
         return 'null'
+
+@register.filter()
+def is_wishlist(product, request):
+    return WishlistModel.objects.filter(user=request.user, product=product).exists()
