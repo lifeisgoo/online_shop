@@ -80,7 +80,8 @@ class ProductModel(models.Model):
     long_description = RichTextUploadingField(verbose_name=_('long_description'))
     price = models.FloatField(verbose_name=_('price'))
     real_price = models.FloatField(verbose_name=_('real_price'), default=0)
-    discount = models.PositiveSmallIntegerField(default=0, verbose_name=_('sale'))
+    sale = models.BooleanField(verbose_name=_('sale'), default=False)
+    discount = models.PositiveSmallIntegerField(default=0, verbose_name=_('discount'))
     main_image = models.ImageField(upload_to='products/', verbose_name=_('main_image'))
     tag = models.ManyToManyField(ProductTagModel,related_name='products',verbose_name=_('tags'))
     sizes = models.ManyToManyField(SizeModel, related_name='products', verbose_name=_('sizes'))
@@ -91,16 +92,8 @@ class ProductModel(models.Model):
     def new(self):
         return (timezone.now() - self.created_at).days <= 5
 
-    def get_price(self):
-        if self.discount:
-            return ((100 - self.discount) / 100) * self.price
-        return self.price
-
     def is_discount(self):
         return bool(self.discount)
-
-    def is_new(self):
-        return (timezone.now() - self.created_at).days <= 5
 
     def __str__(self):
         return self.title
