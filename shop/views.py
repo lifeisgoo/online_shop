@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Min, Max
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
@@ -81,6 +83,9 @@ class ProductDetailView(DetailView):
 
 
 
+
+
+@login_required
 def wishlist_view(request, pk):
     product = get_object_or_404(ProductModel, pk=pk)
     WishlistModel.create_or_delete(request.user, product)
@@ -88,7 +93,24 @@ def wishlist_view(request, pk):
 
 
 
+class WishlistListView(LoginRequiredMixin, ListView):
+    template_name = 'wishlist.html'
 
+    def get_queryset(self):
+        return ProductModel.objects.filter(wishlistmodel__user_id=self.request.user)
+
+
+
+def update_card_view(request):
+    cart = request.session.get('cart', [])
+
+    if id in cart:
+        cart.remove(id)
+    else:
+        cart.append(id)
+
+    request.session['cart'] = cart
+    return redirect(request.GET.get('next', '/'))
 
 
 
